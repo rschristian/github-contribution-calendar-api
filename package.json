@@ -1,11 +1,11 @@
 {
   "name": "github-contribution-calendar-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "license": "MIT",
   "scripts": {
-    "serve": "node index.js",
-    "lint": "eslint index.js --fix"
+    "serve": "node src/index.js",
+    "lint": "eslint src/index.js --fix"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
