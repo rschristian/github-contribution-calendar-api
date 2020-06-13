@@ -30,7 +30,7 @@ const app = polka()
         console.log(`> Running on localhost:${PORT}`);
     });
 
-app.get('/users/:username', async (req, res) => {
+app.get('/user/:username', async (req, res) => {
     try {
         const requestedUser = String(req.params.username);
 
