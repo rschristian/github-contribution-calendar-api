@@ -42,7 +42,7 @@ app.get('/users/:username', async (req, res) => {
 
         return res.end(JSON.stringify(data));
     } catch (error) {
-        return res.end(error);
+        return res.end(`Error: ${error}`);
     }
 });
 
