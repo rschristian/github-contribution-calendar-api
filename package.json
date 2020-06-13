@@ -1,0 +1,24 @@
+{
+  "name": "github-contribution-calendar-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "serve": "node index.js",
+    "lint": "eslint index.js --fix"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "compression": "^1.7.4",
+    "helmet": "^3.23.0",
+    "node-cache": "^5.1.1",
+    "node-fetch": "^2.6.0",
+    "polka": "^0.5.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "prettier": "^2.0.5"
+  }
+}
