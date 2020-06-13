@@ -1,0 +1,6 @@
+# Ignore everything
+**
+
+# Allow files and directories
+!/src/index.js
+!/package.json
