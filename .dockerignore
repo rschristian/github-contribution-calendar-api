@@ -2,5 +2,5 @@
 **
 
 # Allow files and directories
-!/src/index.js
+!/index.js
 !/package.json

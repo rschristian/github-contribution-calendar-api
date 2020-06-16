@@ -22,29 +22,28 @@ const setHeaders = async (req, res, next) => {
     next();
 };
 
-const app = polka()
+polka()
     .use(compression(), helmet())
     .use(setHeaders)
+    .get('/user/:username', async (req, res) => {
+        try {
+            const requestedUser = String(req.params.username);
+
+            const cachedValue = cache.get(requestedUser);
+            if (cachedValue !== undefined) return res.end(JSON.stringify(cachedValue));
+
+            const data = await getUserData(requestedUser);
+            cache.set(requestedUser, data);
+
+            return res.end(JSON.stringify(data));
+        } catch (error) {
+            return res.end(`Error: ${error}`);
+        }
+    })
     .listen(PORT, (err) => {
         if (err) throw err;
         console.log(`> Running on localhost:${PORT}`);
     });
-
-app.get('/user/:username', async (req, res) => {
-    try {
-        const requestedUser = String(req.params.username);
-
-        const cachedValue = cache.get(requestedUser);
-        if (cachedValue !== undefined) return res.end(JSON.stringify(cachedValue));
-
-        const data = await getUserData(requestedUser);
-        cache.set(requestedUser, data);
-
-        return res.end(JSON.stringify(data));
-    } catch (error) {
-        return res.end(`Error: ${error}`);
-    }
-});
 
 const getUserData = async (requestedUser) => {
     const data = await fetch(`https://github.com/users/${requestedUser}/contributions`);
@@ -70,18 +69,17 @@ const getUserData = async (requestedUser) => {
             const parseDay = (day) => {
                 const $day = $(day);
 
-                const date = $day
-                    .attr('data-date')
-                    .split('-')
-                    .map((d) => parseInt(d, 10));
-
-                const value = {
-                    date: $day.attr('data-date'),
-                    count: parseInt($day.attr('data-count'), 10),
-                    intensity: defaultColorArray[$day.attr('fill').toLowerCase()] || 0,
+                return {
+                    date: $day
+                        .attr('data-date')
+                        .split('-')
+                        .map((d) => parseInt(d, 10)),
+                    value: {
+                        date: $day.attr('data-date'),
+                        count: parseInt($day.attr('data-count'), 10),
+                        intensity: defaultColorArray[$day.attr('fill').toLowerCase()] || 0,
+                    },
                 };
-
-                return { date, value };
             };
             return $days.get().map((day) => parseDay(day).value);
         })(),
