@@ -5,7 +5,7 @@ const NodeCache = require('node-cache');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 
-const PORT = 3001;
+const PORT = 3000;
 const cache = new NodeCache({ stdTTL: 86400 });
 
 const defaultColorArray = {
