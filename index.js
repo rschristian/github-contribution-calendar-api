@@ -10,10 +10,10 @@ const cache = new NodeCache({ stdTTL: 86400 });
 
 const defaultColorArray = {
     '#ebedf0': 0,
-    '#c6e48b': 1,
-    '#7bc96f': 2,
-    '#239a3b': 3,
-    '#196127': 4,
+    '#9be9a8': 1,
+    '#40c463': 2,
+    '#30a14e': 3,
+    '#216e39': 4,
 };
 
 const setHeaders = async (req, res, next) => {
