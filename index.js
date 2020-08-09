@@ -67,11 +67,9 @@ const getUserData = async (requestedUser) => {
         const $day = $(day);
 
         return {
-            value: {
-                date: $day.attr('data-date'),
-                count: parseInt($day.attr('data-count'), 10),
-                intensity: defaultColorArray[$day.attr('fill').toLowerCase()] || 0,
-            },
+            date: $day.attr('data-date'),
+            count: parseInt($day.attr('data-count'), 10),
+            intensity: defaultColorArray[$day.attr('fill').toLowerCase()] || 0,
         };
     };
     const days = $days.get().map((day) => parseDay(day));
