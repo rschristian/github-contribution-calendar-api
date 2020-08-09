@@ -63,25 +63,27 @@ const getUserData = async (requestedUser) => {
         contributionCount = parseInt(contributionCount.replace(/,/g, ''), 10);
     }
 
+    const parseDay = (day) => {
+        const $day = $(day);
+
+        return {
+            value: {
+                date: $day.attr('data-date'),
+                count: parseInt($day.attr('data-count'), 10),
+                intensity: defaultColorArray[$day.attr('fill').toLowerCase()] || 0,
+            },
+        };
+    };
+    const days = $days.get().map((day) => parseDay(day));
+
+    const contributionData = [];
+    for (let i = 0; i < Math.ceil(days.length / 7); i++) contributionData.push([]);
+    for (let i = 0; i < days.length; i++) {
+        contributionData[Math.floor(i / 7)].push(days[i]);
+    }
+
     return {
         total: contributionCount || 0,
-        contributions: (() => {
-            const parseDay = (day) => {
-                const $day = $(day);
-
-                return {
-                    date: $day
-                        .attr('data-date')
-                        .split('-')
-                        .map((d) => parseInt(d, 10)),
-                    value: {
-                        date: $day.attr('data-date'),
-                        count: parseInt($day.attr('data-count'), 10),
-                        intensity: defaultColorArray[$day.attr('fill').toLowerCase()] || 0,
-                    },
-                };
-            };
-            return $days.get().map((day) => parseDay(day).value);
-        })(),
+        contributions: contributionData,
     };
 };
