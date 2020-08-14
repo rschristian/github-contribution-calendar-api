@@ -3,4 +3,5 @@
 
 # Allow files and directories
 !/index.js
+!/index.html
 !/package.json
