@@ -4,6 +4,9 @@ const helmet = require('helmet');
 const NodeCache = require('node-cache');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
+const { readFileSync } = require('fs');
+
+const notFound = readFileSync('./index.html', 'utf8');
 
 const PORT = 3000;
 const cache = new NodeCache({ stdTTL: 86400 });
@@ -39,6 +42,10 @@ polka()
         } catch (error) {
             return res.end(`Error: ${error}`);
         }
+    })
+    .get('*', async (req, res) => {
+        res.setHeader('Content-Type', 'text/html');
+        res.end(notFound);
     })
     .listen(PORT, (err) => {
         if (err) throw err;
