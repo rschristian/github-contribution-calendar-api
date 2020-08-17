@@ -61,8 +61,7 @@ const getUserData = async (requestedUser) => {
         .trim()
         .match(/^([0-9,]+)\s/);
 
-    let contributionCount;
-
+    let contributionCount = 0;
     if (contributionCountText) {
         [contributionCount] = contributionCountText;
         contributionCount = parseInt(contributionCount.replace(/,/g, ''), 10);
@@ -86,7 +85,7 @@ const getUserData = async (requestedUser) => {
     }
 
     return {
-        total: contributionCount || 0,
+        total: contributionCount,
         contributions: contributionData,
     };
 };
