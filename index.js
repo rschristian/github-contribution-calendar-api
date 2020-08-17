@@ -11,14 +11,6 @@ const notFound = readFileSync('./index.html', 'utf8');
 const PORT = 3000;
 const cache = new NodeCache({ stdTTL: 86400 });
 
-const defaultColorArray = {
-    '#ebedf0': 0,
-    '#9be9a8': 1,
-    '#40c463': 2,
-    '#30a14e': 3,
-    '#216e39': 4,
-};
-
 const setHeaders = async (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Cache-Control', 'private,max-age=86400,immutable');
@@ -55,6 +47,12 @@ polka()
 const getUserData = async (requestedUser) => {
     const data = await fetch(`https://github.com/users/${requestedUser}/contributions`);
     const $ = cheerio.load(await data.text());
+
+    const defaultColorArray = {};
+    $('.legend > li')
+        .toArray()
+        .map((element) => $(element).css('background-color'))
+        .map((color, i) => (defaultColorArray[color] = i));
 
     const $days = $('rect.day');
 
