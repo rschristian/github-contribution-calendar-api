@@ -8,37 +8,16 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="description" content="Ryan Christian's GitHub Contribution API">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-        <style>
-            html {
-                background-color: #ededed;
-                overflow-y: hidden;
-            }
-            .hero {
-                background-color: #253746;
-                color: #ededed;
-                height: 17rem;
-            }
-            a {
-                color: #d14124;
-            }
-            a:hover {
-                color: #f17154;
-            }
-        </style>
+        <link rel="stylesheet" href="/style.css">
 <!--        <link rel="stylesheet"-->
-<!--              href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/monokai.min.css">-->
-        <style>
-            pre {
-                padding: 0;
-            }
-        </style>
+<!--              href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">-->
     </head>
     <body>
         <section class="hero">
             <div class="hero-body">
                 <div class="container">
                     <h1 class="is-size-2">GitHub Contribution Calendar API</h1>
-                    <h1 class="is-size-4">The correct address for the API is:
+                    <h1 class="is-size-4 ml-2">The address for the API is:
                         <a href="https://githubapi.ryanchristian.dev/user/">
                             https://githubapi.ryanchristian.dev/user/{username}
                         </a>
@@ -47,11 +26,31 @@
             </div>
         </section>
         <div class="container">
-            <h1 class="is-size-3">Data Structure</h1>
-            <h1 class="is-size-5">The structure of the returned data can be defined as the following:</h1>
-<pre><code>{
-    total: 55,
-    contributions: []
+            <h1 class="is-size-3 mt-4">Data Structure</h1>
+            <h1 class="is-size-5 ml-2">Below is an example of the data structure. `total` is a count, `contributions` is an array of arrays made up of 52-53 arrays, each holding 7 values representing a date. This API will cache values, meaning counts are only updated once per 24 hours per user.</h1>
+<pre><code class="lang-json">{
+    total: 2328,
+    contributions: [
+        [
+            {
+                date: "2019-09-01",
+                count: 8,
+                intensity: 1
+            },
+            {
+                date: "2019-09-02",
+                count: 2,
+                intensity: 1
+            },
+            {
+                date: "2019-09-03",
+                count: 7,
+                intensity: 1
+            },
+            ...
+        ],
+        ...
+    ]
 }</code></pre>
         </div>
         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>

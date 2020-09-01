@@ -1,0 +1,37 @@
+html {
+    color: #253746;
+    background-color: #ededed;
+    overflow-y: auto;
+}
+
+.hero {
+    background-color: #253746;
+    color: #ddd;
+    height: 12rem;
+}
+
+a {
+    color: #d14124;
+}
+
+a:hover {
+    color: #f17154;
+}
+
+pre {
+    margin-top: 1rem;
+    padding: 0;
+}
+
+.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: .5em;
+    background: #253746;
+    color: #ddd;
+    border-radius: 10px;
+}
+
+.hljs-attribute,.hljs-link,.hljs-regexp,.hljs-symbol,.hljs-number,.hljs-string {
+    color: #d14124
+}

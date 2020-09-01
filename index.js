@@ -1,12 +1,10 @@
 const polka = require('polka');
 const compression = require('compression');
 const helmet = require('helmet');
+const serve = require('sirv');
 const NodeCache = require('node-cache');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
-const { readFileSync } = require('fs');
-
-const notFound = readFileSync('./index.html', 'utf8');
 
 const PORT = 3000;
 const cache = new NodeCache({ stdTTL: 86400 });
@@ -18,7 +16,7 @@ const setHeaders = async (req, res, next) => {
 };
 
 polka()
-    .use(compression(), helmet())
+    .use(compression(), helmet(), serve('assets'))
     .use(setHeaders)
     .get('/user/:username', async (req, res) => {
         try {
@@ -37,7 +35,7 @@ polka()
     })
     .get('*', async (req, res) => {
         res.setHeader('Content-Type', 'text/html');
-        res.end(notFound);
+        res.end();
     })
     .listen(PORT, (err) => {
         if (err) throw err;
