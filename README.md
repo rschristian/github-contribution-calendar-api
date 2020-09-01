@@ -6,7 +6,7 @@ This is a simple API server that one could use to access the contribution data t
 
 There's a few ways one could use this. 
 
-Firstly, I have an instance of this API running at `https://githubapi.ryanchristian.dev`. You can use that address to get to an instruction page, or use `https://githubapi.ryanchristian.dev/user/{username}` for actually retrieving data. Availability of this is not guaranteed, service may go down without warning.
+Firstly, I have an instance of this API running at https://githubapi.ryanchristian.dev. You can use that address to get to an instruction page, or use https://githubapi.ryanchristian.dev/user/{username} for actually retrieving data. Availability of this is not guaranteed, service may go down without warning.
 
 Secondly, you can use the Docker container I have built for running this server, which can be found at [ryanchristian4427/github-contribution-calendar-api](https://hub.docker.com/r/ryanchristian4427/github-contribution-calendar-api). To run it, you can use something along the lines of the following:
 
