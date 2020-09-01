@@ -3,4 +3,4 @@ WORKDIR /app
 COPY . /app
 RUN yarn --prod && yarn cache clean
 EXPOSE 3000
-CMD ["yarn", "serve"]
+CMD ["yarn", "serve:prod"]
