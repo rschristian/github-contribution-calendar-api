@@ -1,7 +1,7 @@
 const polka = require('polka');
 const compression = require('compression');
 const helmet = require('helmet');
-const serve = require('sirv');
+const sirv = require('sirv');
 const NodeCache = require('node-cache');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
@@ -16,7 +16,7 @@ const setHeaders = async (req, res, next) => {
 };
 
 polka()
-    .use(compression(), helmet(), serve('assets'))
+    .use(compression({ threshold: 0 }), helmet(), sirv('assets'))
     .use(setHeaders)
     .get('/user/:username', async (req, res) => {
         try {
@@ -28,13 +28,16 @@ polka()
             const data = await getUserData(requestedUser);
             cache.set(requestedUser, data);
 
-            return res.end(JSON.stringify(data));
+            res.end(JSON.stringify(data));
         } catch (error) {
-            return res.end(`Error: ${error}`);
+            res.end(`Error: ${error}`);
         }
     })
     .get('*', async (req, res) => {
-        res.setHeader('Content-Type', 'text/html');
+        res.writeHead(302, {
+            Location: '/',
+            'Content-Type': 'text/html',
+        });
         res.end();
     })
     .listen(PORT, (err) => {
