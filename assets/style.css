@@ -18,11 +18,6 @@ a:hover {
     color: #f17154;
 }
 
-pre {
-    margin-top: 1rem;
-    padding: 0;
-}
-
 .hljs {
     display: block;
     overflow-x: auto;
@@ -32,6 +27,6 @@ pre {
     border-radius: 10px;
 }
 
-.hljs-attribute,.hljs-link,.hljs-regexp,.hljs-symbol,.hljs-number,.hljs-string {
+.hljs-number,.hljs-string {
     color: #d14124
 }
