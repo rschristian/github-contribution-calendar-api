@@ -6,7 +6,7 @@ const NodeCache = require('node-cache');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 
-const PORT = 3000;
+const { PORT = 3000 } = process.env;
 const cache = new NodeCache({ stdTTL: 86400 });
 
 const setHeaders = async (req, res, next) => {
