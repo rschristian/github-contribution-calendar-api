@@ -7,7 +7,8 @@ html {
 .hero {
     background-color: #253746;
     color: #ddd;
-    height: 12rem;
+    min-height: 12rem;
+    word-break: break-word;;
 }
 
 a {
