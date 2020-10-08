@@ -1,5 +1,4 @@
 const polka = require('polka');
-const compression = require('compression');
 const helmet = require('helmet');
 const sirv = require('sirv');
 const NodeCache = require('node-cache');
@@ -16,7 +15,7 @@ const setHeaders = async (req, res, next) => {
 };
 
 polka()
-    .use(compression({ threshold: 0 }), helmet(), sirv('assets'))
+    .use(helmet(), sirv('assets'))
     .use(setHeaders)
     .get('/user/:username', async (req, res) => {
         try {
