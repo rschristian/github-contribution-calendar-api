@@ -48,6 +48,8 @@ const getUserData = async (requestedUser) => {
     const data = await fetch(`https://github.com/users/${requestedUser}/contributions`);
     const $ = cheerio.load(await data.text());
 
+    if ($('.js-yearly-contributions').find() < 1) return { errorMessage: 'User does not exist' };
+
     const defaultColorArray = {};
     $('.legend > li')
         .toArray()
@@ -73,7 +75,7 @@ const getUserData = async (requestedUser) => {
         return {
             date: $day.attr('data-date'),
             count: parseInt($day.attr('data-count'), 10),
-            intensity: defaultColorArray[$day.attr('fill')] || 0,
+            intensity: defaultColorArray[$day.attr('fill')],
         };
     };
     const days = $days.get().map((day) => parseDay(day));
@@ -89,3 +91,26 @@ const getUserData = async (requestedUser) => {
         contributions: contributionData,
     };
 };
+
+// const defaultData = () => {
+//     const contributionData = [];
+//
+//     const date = new Date();
+//     const numberOfWeeks = date.getDay() === 0 ? 52 : 53;
+//     for (let i = 0; i < numberOfWeeks; i++) contributionData.push([]);
+//
+//     const totalDays = 52 * 7 + date.getDay();
+//     for (let i = 0; i < totalDays; i++) {
+//         const tempDate = new Date();
+//         tempDate.setDate(date.getDate() - (totalDays - i));
+//         contributionData[Math.floor(i / 7)].push({
+//             date: tempDate,
+//             count: 0,
+//             intensity: 0,
+//         });
+//     }
+//     return {
+//         total: 0,
+//         contributions: contributionData,
+//     };
+// };
