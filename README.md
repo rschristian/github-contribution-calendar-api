@@ -19,7 +19,7 @@ docker run -d \
 
 This will of course run on port 3000 by default. 
 
-Lastly, you can just run this server. Install only production dependencies with `yarn install --prod` (or the NPM equivalent) and then run `yarn serve:prod`. Alternatively install all dependencies and run a hot-reloading server with nodemon. 
+Lastly, you can just run this server. Install only production dependencies with `yarn install --prod` (or the NPM equivalent) and then run `yarn start`. Alternatively install all dependencies and run a hot-reloading server with nodemon. 
 
 ## License
 

@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "serve:dev": "nodemon -e js,html,css ./index.js localhost 3000",
-    "serve:prod": "node index.js",
+    "serve:dev": "nodemon -e js,html,css ./server.js localhost 3000",
     "lint": "eslint index.js --fix"
   },
   "dependencies": {

@@ -2,6 +2,6 @@
 **
 
 # Allow files and directories
-!/index.js
+!/server.js
 !/assets/*
 !/package.json
