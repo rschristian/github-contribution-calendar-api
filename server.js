@@ -48,7 +48,7 @@ const getUserData = async (requestedUser) => {
     const data = await fetch(`https://github.com/users/${requestedUser}/contributions`);
     const $ = cheerio.load(await data.text());
 
-    if ($('.js-yearly-contributions').find() < 1) return { message: 'User does not exist' };
+    if ($('.js-yearly-contributions').length < 1) return { message: 'User does not exist' };
 
     const defaultColorArray = {};
     $('.legend > li')
