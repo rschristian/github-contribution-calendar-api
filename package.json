@@ -4,16 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "serve:dev": "nodemon -e js,html,css ./server.js localhost 3000",
+    "dev": "nodemon -e js,html,css ./server.js localhost 3000",
     "lint": "eslint index.js --fix"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "helmet": "^4.1.0",
+    "helmet": "^4.1.1",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.6.1",
     "polka": "^1.0.0-next.11",
-    "sirv": "^1.0.6"
+    "sirv": "^1.0.7"
   },
   "devDependencies": {
     "eslint": "^7.8.1",
