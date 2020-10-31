@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon -e js,html,css ./server.js localhost 3000",
-    "lint": "eslint index.js --fix"
+    "lint": "eslint server.js --fix"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
