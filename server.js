@@ -50,11 +50,11 @@ const getUserData = async (requestedUser) => {
 
     if ($('.js-yearly-contributions').length < 1) return { message: 'User does not exist' };
 
-    const defaultColorArray = {};
+    const legendColors = {};
     $('.legend > li')
         .toArray()
         .map((element) => $(element).css('background-color'))
-        .map((color, i) => (defaultColorArray[color] = i));
+        .map((color, i) => (legendColors[color] = i));
 
     const $days = $('rect.day');
 
@@ -75,7 +75,7 @@ const getUserData = async (requestedUser) => {
         return {
             date: $day.attr('data-date'),
             count: parseInt($day.attr('data-count'), 10),
-            intensity: defaultColorArray[$day.attr('fill')],
+            intensity: legendColors[$day.attr('fill')],
         };
     };
     const days = $days.get().map((day) => parseDay(day));
