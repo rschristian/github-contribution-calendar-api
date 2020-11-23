@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon -e js,html,css ./server.js localhost 3000",
-    "lint": "eslint server.js --fix"
+    "lint": "eslint server.js --fix",
+    "setup-style": "node purgecss.js && npx minify assets/bulma.css > assets/.bulma.css && mv assets/.bulma.css assets/bulma.css"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
@@ -16,10 +17,13 @@
     "sirv": "^1.0.7"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^3.0.0",
+    "bulma": "^0.9.1",
     "eslint": "^7.8.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "nodemon": "^2.0.4",
+    "postcss": "^8.1.9",
     "prettier": "^2.1.1"
   }
 }

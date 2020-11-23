@@ -3,12 +3,20 @@
 
 name: Container CD
 
-on: [push, pull_request]
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Minify HTML
+        run: npx minify assets/index.html > assets/.index.html && mv assets/.index.html assets/index.html
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v1.1.0
