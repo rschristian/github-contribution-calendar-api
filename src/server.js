@@ -21,7 +21,7 @@ polka()
                 directives: {
                     ...helmet.contentSecurityPolicy.getDefaultDirectives(),
                     'default-src': ['*'],
-                    'script-src': ["'self'", "'sha256-KQHkFZcLwzDy8iyCCt4L2un2ivJscvRV+09AmZShG7s='"],
+                    'script-src': ["'self'", "'sha256-3Iib7pP537KUPC46AikLr/8vVy/2r1vvPryz573QQuo='"],
                 },
             },
         }),
