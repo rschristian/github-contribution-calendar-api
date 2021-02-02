@@ -58,23 +58,23 @@
             </section>
         </div>
         <script type="module">
-getUserData('rschristian');
-async function getUserData(username) {
-    try {
-        const response = await (await fetch(`http://localhost:3000/user/${username}`)).json();
-        document.getElementById('jsonData').innerHTML = JSON.stringify(response, null, 2);
-        hljs.initHighlighting.called = false;
-        hljs.initHighlighting();
-    } catch (e) {
-        console.log(e);
-    }
-}
+            getUserData('rschristian');
+            async function getUserData(username) {
+                try {
+                    const response = await (await fetch(`/user/${username}`)).json();
+                    document.getElementById('jsonData').innerHTML = JSON.stringify(response, null, 2);
+                    hljs.initHighlighting.called = false;
+                    hljs.initHighlighting();
+                } catch (e) {
+                    console.log(e);
+                }
+            }
 
-document
-    .getElementById('usernameInput')
-    .addEventListener('change', (e) =>
-        e.target.value ? getUserData(e.target.value) : getUserData('undefined'),
-    );
+            document
+                .getElementById('usernameInput')
+                .addEventListener('change', (e) =>
+                    e.target.value ? getUserData(e.target.value) : getUserData('undefined'),
+                );
         </script>
         <script src="/highlight.pack.js"></script>
 
