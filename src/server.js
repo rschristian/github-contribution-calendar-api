@@ -1,23 +1,33 @@
-const polka = require('polka');
-const helmet = require('helmet');
-const sirv = require('sirv');
-const NodeCache = require('node-cache');
-const fetch = require('node-fetch');
-const cheerio = require('cheerio');
+import polka from 'polka';
+import helmet from 'helmet';
+import sirv from 'sirv';
+import NodeCache from 'node-cache';
+import fetch from 'node-fetch';
+import cheerio from 'cheerio';
 
 const { PORT = 3000 } = process.env;
 const cache = new NodeCache({ stdTTL: 86400 });
 
-const setHeaders = async (req, res, next) => {
+function setHeaders(req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Cache-Control', 'private,max-age=86400,immutable');
     next();
-};
+}
 
 polka()
-    .use(helmet(), sirv('assets'))
-    .use(setHeaders)
-    .get('/user/:username', async (req, res) => {
+    .use(
+        helmet({
+            contentSecurityPolicy: {
+                directives: {
+                    ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+                    'default-src': ['*'],
+                    'script-src': ["'self'", "'sha256-KQHkFZcLwzDy8iyCCt4L2un2ivJscvRV+09AmZShG7s='"],
+                },
+            },
+        }),
+        sirv('src/assets'),
+    )
+    .get('/user/:username', setHeaders, async (req, res) => {
         try {
             const requestedUser = String(req.params.username);
 
@@ -44,7 +54,7 @@ polka()
         console.log(`> Running on localhost:${PORT}`);
     });
 
-const getUserData = async (requestedUser) => {
+async function getUserData(requestedUser) {
     const data = await fetch(`https://github.com/users/${requestedUser}/contributions`);
     const $ = cheerio.load(await data.text());
 
@@ -90,27 +100,4 @@ const getUserData = async (requestedUser) => {
         total: contributionCount,
         contributions: contributionData,
     };
-};
-
-// const defaultData = () => {
-//     const contributionData = [];
-//
-//     const date = new Date();
-//     const numberOfWeeks = date.getDay() === 0 ? 52 : 53;
-//     for (let i = 0; i < numberOfWeeks; i++) contributionData.push([]);
-//
-//     const totalDays = 52 * 7 + date.getDay();
-//     for (let i = 0; i < totalDays; i++) {
-//         const tempDate = new Date();
-//         tempDate.setDate(date.getDate() - (totalDays - i));
-//         contributionData[Math.floor(i / 7)].push({
-//             date: tempDate,
-//             count: 0,
-//             intensity: 0,
-//         });
-//     }
-//     return {
-//         total: 0,
-//         contributions: contributionData,
-//     };
-// };
+}

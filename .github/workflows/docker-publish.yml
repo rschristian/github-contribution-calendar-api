@@ -16,7 +16,7 @@ jobs:
           node-version: 14.x
 
       - name: Minify HTML
-        run: npx minify assets/index.html > assets/.index.html && mv assets/.index.html assets/index.html
+        run: npx minify src/assets/index.html > src/assets/.index.html && mv src/assets/.index.html src/assets/index.html
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v1.1.0

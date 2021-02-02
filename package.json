@@ -2,28 +2,44 @@
   "name": "github-contribution-calendar-api",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon -e js,html,css ./server.js localhost 3000",
-    "lint": "eslint server.js --fix",
-    "setup-style": "node purgecss.js && npx minify assets/bulma.css > assets/.bulma.css && mv assets/.bulma.css assets/bulma.css"
+    "dev": "nodemon --watch src -e js,html src/server.js",
+    "start": "node src/server.js",
+    "styles": "node twind.processor.js",
+    "lint": "eslint src/server.js --fix"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
+    "cheerio": "^1.0.0-rc.5",
     "helmet": "^4.2.0",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.6.1",
     "polka": "^1.0.0-next.11",
-    "sirv": "^1.0.7"
+    "sirv": "^1.0.7",
+    "twind": "^0.14.4"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^3.0.0",
-    "bulma": "^0.9.1",
     "eslint": "^7.8.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "nodemon": "^2.0.4",
-    "postcss": "^8.1.9",
-    "prettier": "^2.1.1"
-  }
+    "prettier": "^2.1.1",
+    "prettier-config-rschristian": "^0.1.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 12
+    },
+    "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+    "rules": {
+      "strict": 0
+    }
+  },
+  "prettier": "prettier-config-rschristian"
 }
