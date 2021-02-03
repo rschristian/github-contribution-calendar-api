@@ -20,7 +20,7 @@ polka()
             contentSecurityPolicy: {
                 directives: {
                     ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-                    'default-src': ['*'],
+                    'default-src': ["'self'", 'https://*.ryanchristian.dev'],
                     'script-src': ["'self'", "'sha256-tKq1d+9+VsXY1K2zr2saG2Mj8GvizZb+jiUtc/QPPSw='"],
                 },
             },
