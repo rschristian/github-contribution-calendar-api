@@ -5,7 +5,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --watch src -e js,html src/server.js",
+    "dev": "DEV=true nodemon --watch src -e js,html src/server.js",
     "start": "node src/server.js",
     "styles": "node twind.processor.js",
     "lint": "eslint src/server.js --fix"

@@ -5,7 +5,7 @@ import NodeCache from 'node-cache';
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, DEV = false } = process.env;
 const cache = new NodeCache({ stdTTL: 86400 });
 
 function setHeaders(req, res, next) {
@@ -16,15 +16,17 @@ function setHeaders(req, res, next) {
 
 polka()
     .use(
-        helmet({
-            contentSecurityPolicy: {
-                directives: {
-                    ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-                    'default-src': ["'self'", 'https://*.ryanchristian.dev'],
-                    'script-src': ["'self'", "'sha256-tKq1d+9+VsXY1K2zr2saG2Mj8GvizZb+jiUtc/QPPSw='"],
-                },
-            },
-        }),
+        !DEV
+            ? helmet({
+                  contentSecurityPolicy: {
+                      directives: {
+                          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+                          'default-src': ["'self'", 'https://*.ryanchristian.dev'],
+                          'script-src': ["'self'", "'sha256-tKq1d+9+VsXY1K2zr2saG2Mj8GvizZb+jiUtc/QPPSw='"],
+                      },
+                  },
+              })
+            : (req, res, next) => next(),
         sirv('src/assets'),
     )
     .get('/user/:username', setHeaders, async (req, res) => {
