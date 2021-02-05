@@ -62,13 +62,7 @@ async function getUserData(requestedUser) {
 
     if ($('.js-yearly-contributions').length < 1) return { message: 'User does not exist' };
 
-    const legendColors = {};
-    $('.legend > li')
-        .toArray()
-        .map((element) => $(element).css('background-color'))
-        .map((color, i) => (legendColors[color] = i));
-
-    const $days = $('rect.day');
+    const $days = $('rect.ContributionCalendar-day');
 
     const contributionCountText = $('.js-yearly-contributions h2')
         .text()
@@ -87,7 +81,7 @@ async function getUserData(requestedUser) {
         return {
             date: $day.attr('data-date'),
             count: parseInt($day.attr('data-count'), 10),
-            intensity: legendColors[$day.attr('fill')] || 0,
+            intensity: $day.attr('data-level'),
         };
     };
     const days = $days.get().map((day) => parseDay(day));
