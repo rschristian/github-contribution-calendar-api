@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head>
+        <meta charset="utf-8">
+        <title>GitHub Contribution API</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="description" content="Ryan Christian's GitHub Contribution API">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <style>
+            html {
+                color: #253746;
+                background-color: #ededed;
+                overflow-y: auto;
+            }
+
+            body {
+                overflow-x: hidden;
+            }
+
+            .hljs {
+                display: block;
+                overflow-x: auto;
+                padding: 0.5em;
+                color: #ddd;
+            }
+
+            .hljs-number,
+            .hljs-string {
+                color: #d14124;
+            }
+        </style>
+        <style></style>
+    </head>
+    <body>
+        <div id="app">
+            <section class="h-48 bg-navy text-offWhite">
+                <div class="py-12 px-6 flex-grow">
+                    <div class="w-auto max-w-screen-xl relative text-center my-0 mx-auto">
+                        <h1 class="text-2xl lg:text-5xl break-normal">GitHub Contribution Calendar API</h1>
+                        <a class="text-lg lg:text-2xl break-normal leading-normal text-red hover:text-red-hover" href="https://githubapi.ryanchristian.dev/user/">
+                            https://githubapi.ryanchristian.dev/user/{username}
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section class="p-6">
+                <div class="max-w-screen-xl mx-auto">
+                    <h1 class="text-xl lg:text-4xl text-center lg:text-left mb-4">Data Structure</h1>
+                    <p class="text-base lg:text-xl text-justify lg:ml-4 mb-2">
+                        Below is an interactive display of the data that is returned. By default, my own profile data
+                        is provided, but feel free to enter your own user name to see the data and the structure that
+                        is returned.
+                    </p>
+                    <p class="text-base lg:text-xl text-justify lg:ml-4">
+                        This API will cache values, meaning counts are only updated once per 24 hours per user.
+                    </p>
+                    <div class="mt-8 mx-4">
+                        <div class="md:float-left md:w-2/12 mb-3 pt-0">
+                            <label for="usernameInput" class="hidden">Username</label>
+                            <input id="usernameInput" class="px-2 py-2 rounded-lg shadow outline-none focus:ring w-full" type="text" placeholder="rschristian">
+                        </div>
+                        <pre class="md:float-right md:w-9/12 h-3/5 px-0 py-0 bg-navy rounded-lg overflow-auto"><code id="jsonData" class="lang-json"></code></pre>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script type="module">
+            getUserData('rschristian');
+            async function getUserData(username) {
+                try {
+                    const response = await (await fetch(`/user/${username}`)).json();
+                    document.getElementById('jsonData').innerHTML = JSON.stringify(response, null, 2);
+                    hljs.initHighlighting.called = false;
+                    hljs.initHighlighting();
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+
+            document
+                .getElementById('usernameInput')
+                .addEventListener('change', (e) =>
+                    e.target.value ? getUserData(e.target.value) : getUserData('undefined'),
+                );
+        </script>
+        <script src="/highlight.pack.js"></script>
+
+
+</body></html>

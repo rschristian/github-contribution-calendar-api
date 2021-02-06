@@ -9,6 +9,7 @@ const { tw } = create({
     theme: {
         extend: {
             fontSize: {
+                '2xl': '1.5rem',
                 '4xl': '2rem',
                 '5xl': '2.5rem',
             },
@@ -30,7 +31,7 @@ const { tw } = create({
 
 sheet.reset();
 
-const $ = cheerio.load(fs.readFileSync('src/assets/index.html'));
+const $ = cheerio.load(fs.readFileSync('src/assets/dev.html'));
 const body = cheerio.html($('#app'));
 
 shim(body, { tw });

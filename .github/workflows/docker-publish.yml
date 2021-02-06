@@ -15,6 +15,12 @@ jobs:
         with:
           node-version: 14.x
 
+      - name: Generate Style Tag
+        run: node twind.processor.js
+
+      - name: Remove Dev HTML
+        run: rm src/assets/dev.html
+
       - name: Minify HTML
         run: npx minify src/assets/index.html > src/assets/.index.html && mv src/assets/.index.html src/assets/index.html
 
