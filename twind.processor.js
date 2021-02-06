@@ -15,6 +15,7 @@ const { tw } = create({
             },
             height: {
                 '3/5': '60vh',
+                '3/4': '75vh',
             },
         },
         colors: {
