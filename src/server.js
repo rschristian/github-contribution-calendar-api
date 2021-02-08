@@ -5,7 +5,7 @@ import NodeCache from 'node-cache';
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 
-const { PORT = 3000, DEV = false } = process.env;
+const { PORT = 3000, DEV = false, HOST = 'https://*.ryanchristian.dev' } = process.env;
 const cache = new NodeCache({ stdTTL: 86400 });
 
 function setHeaders(req, res, next) {
@@ -21,7 +21,7 @@ polka()
                   contentSecurityPolicy: {
                       directives: {
                           ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-                          'default-src': ["'self'", 'https://*.ryanchristian.dev'],
+                          'default-src': ["'self'", HOST],
                           'script-src': ["'self'", "'sha256-tKq1d+9+VsXY1K2zr2saG2Mj8GvizZb+jiUtc/QPPSw='"],
                       },
                   },
