@@ -8,12 +8,14 @@
         <link rel="shortcut icon" href="/favicon.ico">
         <style>
             html {
+                height: 100%;
                 color: #253746;
                 background-color: #ededed;
                 overflow-y: auto;
             }
 
             body {
+                height: 100%;
                 overflow-x: hidden;
             }
 
@@ -32,9 +34,9 @@
         <style></style>
     </head>
     <body>
-        <div id="app">
+        <div id="app" class="flex flex-col h-full">
             <section class="bg-navy text-offWhite">
-                <div class="py-12 px-6 flex-grow">
+                <div class="py-12 px-6 flex-shrink-0">
                     <div class="w-auto max-w-screen-xl relative text-center my-0 mx-auto">
                         <h1 class="text-2xl lg:text-5xl break-normal">GitHub Contribution Calendar API</h1>
                         <a class="text-lg lg:text-2xl break-words leading-normal text-red hover:text-red-hover" href="https://githubapi.ryanchristian.dev/user/">
@@ -43,7 +45,7 @@
                     </div>
                 </div>
             </section>
-            <section class="p-6">
+            <section class="p-6 flex-auto">
                 <div class="max-w-screen-xl mx-auto">
                     <h1 class="text-xl lg:text-4xl text-center lg:text-left mb-4">Data Structure</h1>
                     <p class="text-base lg:text-xl text-justify lg:ml-4 mb-2">
@@ -54,15 +56,18 @@
                     <p class="text-base lg:text-xl text-justify lg:ml-4">
                         This API will cache values, meaning counts are only updated once per 24 hours per user.
                     </p>
-                    <div class="mt-8 mx-4">
-                        <div class="md:float-left md:w-2/12 mb-3 pt-0">
+                    <div class="my-8 mx-4 flex flex-col md:flex-row md:justify-between">
+                        <div class="md:w-2/12 mb-3 pt-0">
                             <label for="usernameInput" class="hidden">Username</label>
                             <input id="usernameInput" class="px-2 py-2 rounded-lg shadow outline-none focus:ring w-full" type="text" placeholder="rschristian">
                         </div>
-                        <pre class="md:float-right md:w-9/12 h-3/4 lg:h-3/5 px-0 py-0 bg-navy rounded-lg overflow-auto"><code id="jsonData" class="lang-json"></code></pre>
+                        <pre class="md:w-9/12 h-3/4 lg:h-3/5 px-0 py-0 bg-navy rounded-lg overflow-auto"><code id="jsonData" class="lang-json"></code></pre>
                     </div>
                 </div>
             </section>
+            <footer class="p-1 bg-navy text-offWhite text-center flex-shrink-0">
+                <span>© 2021 Ryan Christian <a class="text-red hover:text-red-hover" href="https://github.com/rschristian" target="_blank" rel="noopener noreferrer">@rschristian</a></span>
+            </footer>
         </div>
         <script type="module">
             getUserData('rschristian');
