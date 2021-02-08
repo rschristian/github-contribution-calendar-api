@@ -62,7 +62,7 @@ async function getUserData(requestedUser) {
 
     if ($('.js-yearly-contributions').length < 1) return { message: 'User does not exist' };
 
-    const $days = $('rect.ContributionCalendar-day');
+    const $days = $('g > rect.ContributionCalendar-day');
 
     const contributionCountText = $('.js-yearly-contributions h2')
         .text()
