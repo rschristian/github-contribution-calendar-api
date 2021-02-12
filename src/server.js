@@ -21,7 +21,7 @@ polka()
                   contentSecurityPolicy: {
                       directives: {
                           ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-                          'default-src': ["'self'", `'${HOST}'`],
+                          'default-src': ["'self'", HOST],
                           'script-src': ["'self'", "'sha256-tKq1d+9+VsXY1K2zr2saG2Mj8GvizZb+jiUtc/QPPSw='"],
                       },
                   },
