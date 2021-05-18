@@ -1,11 +1,13 @@
-<!DOCTYPE html><html lang="en"><head>
-        <meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
         <title>GitHub Contribution API</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <meta name="mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="description" content="Ryan Christian's GitHub Contribution API">
-        <link rel="shortcut icon" href="/favicon.ico">
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="description" content="Ryan Christian's GitHub Contribution API" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <style>
             html {
                 height: 100%;
@@ -39,8 +41,11 @@
                 <div class="py-12 px-6 flex-shrink-0">
                     <div class="w-auto max-w-screen-xl relative text-center my-0 mx-auto">
                         <h1 class="text-2xl lg:text-5xl break-normal">GitHub Contribution Calendar API</h1>
-                        <a class="text-lg lg:text-2xl break-words leading-normal text-red hover:text-red-hover" href="https://githubapi.ryanchristian.dev/user/">
-                            https://githubapi.ryanchristian.dev/user/{username}
+                        <a
+                            class="text-lg lg:text-2xl break-words leading-normal text-red hover:text-red-hover"
+                            href="https://gh-calendar.rschristian.dev/user/"
+                        >
+                            https://gh-calendar.rschristian.dev/user/{username}
                         </a>
                     </div>
                 </div>
@@ -49,9 +54,9 @@
                 <div class="max-w-screen-xl mx-auto">
                     <h1 class="text-xl lg:text-4xl text-center lg:text-left mb-4">Data Structure</h1>
                     <p class="text-base lg:text-xl text-justify lg:ml-4 mb-2">
-                        Below is an interactive display of the data that is returned. By default, my own profile data
-                        is provided, but feel free to enter your own user name to see the data and the structure that
-                        is returned.
+                        Below is an interactive display of the data that is returned. By default, my own profile data is
+                        provided, but feel free to enter your own user name to see the data and the structure that is
+                        returned.
                     </p>
                     <p class="text-base lg:text-xl text-justify lg:ml-4">
                         This API will cache values, meaning counts are only updated once per 24 hours per user.
@@ -59,16 +64,33 @@
                     <div class="my-8 mx-4 flex flex-col md:flex-row md:justify-between">
                         <div class="md:w-2/12 mb-3 pt-0">
                             <label for="usernameInput" class="hidden">Username</label>
-                            <input id="usernameInput" class="px-2 py-2 rounded-lg shadow outline-none focus:ring w-full" type="text" placeholder="rschristian">
+                            <input
+                                id="usernameInput"
+                                class="px-2 py-2 rounded-lg shadow outline-none focus:ring w-full"
+                                type="text"
+                                placeholder="rschristian"
+                            />
                         </div>
-                        <pre class="md:w-9/12 h-3/4 lg:h-3/5 px-0 py-0 bg-navy rounded-lg overflow-auto"><code id="jsonData" class="lang-json"></code></pre>
+                        <pre
+                            class="md:w-9/12 h-3/4 lg:h-3/5 px-0 py-0 bg-navy rounded-lg overflow-auto"
+                        ><code id="jsonData" class="lang-json"></code></pre>
                     </div>
                 </div>
             </section>
             <footer class="p-1 bg-navy text-offWhite text-center flex-shrink-0">
-                <span>© 2021 Ryan Christian <a class="text-red hover:text-red-hover" href="https://github.com/rschristian" target="_blank" rel="noopener noreferrer">@rschristian</a></span>
+                <span
+                    >© 2021 Ryan Christian
+                    <a
+                        class="text-red hover:text-red-hover"
+                        href="https://github.com/rschristian"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >@rschristian</a
+                    ></span
+                >
             </footer>
         </div>
+        <script src="/highlight.pack.js"></script>
         <script type="module">
             getUserData('rschristian');
             async function getUserData(username) {
@@ -88,7 +110,5 @@
                     e.target.value ? getUserData(e.target.value) : getUserData('undefined'),
                 );
         </script>
-        <script src="/highlight.pack.js"></script>
-
-
-</body></html>
+    </body>
+</html>

@@ -1,10 +1,11 @@
-import cheerio from 'cheerio';
-import fs from 'fs';
-import { create } from 'twind';
-import { shim, virtualSheet, getStyleTag } from 'twind/shim/server';
+import { promises as fs } from 'fs';
+import { setup } from 'twind';
+import { virtualSheet, getStyleTag, shim } from 'twind/shim/server';
+import { minify } from 'html-minifier-terser';
 
 const sheet = virtualSheet();
-const { tw } = create({
+
+setup({
     hash: false,
     theme: {
         extend: {
@@ -30,16 +31,22 @@ const { tw } = create({
     sheet,
 });
 
-sheet.reset();
+async function ssr() {
+    sheet.reset();
 
-const $ = cheerio.load(fs.readFileSync('src/assets/dev.html'));
-const body = cheerio.html($('#app'));
+    const html = await fs.readFile('_dev.html', 'utf8');
 
-shim(body, { tw });
-const styleTag = getStyleTag(sheet);
-$('head').children().last().replaceWith(styleTag);
+    shim(html);
+    const styleTag = getStyleTag(sheet);
 
-fs.writeFile('src/assets/index.html', $.html(), 'utf-8', (err) => {
-    if (err) throw err;
-    console.log('> Completed');
-});
+    await fs.writeFile(
+        'pages/index.html',
+        minify(html.replace('<style></style>', styleTag), {
+            minifyJS: true,
+            minifyCSS: true,
+            collapseWhitespace: true,
+        }),
+    );
+}
+
+await ssr();
