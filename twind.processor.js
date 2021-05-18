@@ -31,7 +31,7 @@ setup({
     sheet,
 });
 
-async function ssr() {
+(async function ssr() {
     sheet.reset();
 
     const html = await fs.readFile('_dev.html', 'utf8');
@@ -47,6 +47,4 @@ async function ssr() {
             collapseWhitespace: true,
         }),
     );
-}
-
-await ssr();
+})();
