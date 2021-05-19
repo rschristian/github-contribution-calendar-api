@@ -8,8 +8,8 @@
     "build:worker": "cfw build",
     "build:pages": "node twind.processor.js",
     "deploy": "cfw deploy",
-    "serve:dev": "sirv pages -p 3000",
-    "lint": "prettier '{workers,pages}/**/*.{js,ts}' '*.{js,json,html}' --write"
+    "serve:dev": "sirv pages -p 3000 -D",
+    "format": "prettier 'workers/**/*.ts' '*.{js,json,html}' --write"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.5",

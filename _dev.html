@@ -54,7 +54,7 @@
                 <div class="max-w-screen-xl mx-auto">
                     <h1 class="text-xl lg:text-4xl text-center lg:text-left mb-4">Data Structure</h1>
                     <p class="text-base lg:text-xl text-justify lg:ml-4 mb-2">
-                        Below is an interactive display of the data that is returned. By default, my own profile data is
+                        Below is an interactive sample of the data that is returned. By default, my own profile data is
                         provided, but feel free to enter your own user name to see the data and the structure that is
                         returned.
                     </p>
@@ -97,7 +97,11 @@
                 try {
                     const response = await (await fetch(`/user/${username}`)).json();
                     const jsonElement = document.getElementById('jsonData');
-                    jsonElement.innerHTML = JSON.stringify(response, null, 2);
+                    jsonElement.innerHTML = JSON.stringify(
+                        { total: response.total, contributions: response.contributions.slice(0, 3) },
+                        null,
+                        2,
+                    );
                     Prism.highlightElement(jsonElement);
                 } catch (e) {
                     console.log(e);
