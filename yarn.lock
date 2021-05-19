@@ -340,10 +340,10 @@ prettier-config-rschristian@^0.1.0:
   resolved "https://registry.yarnpkg.com/prettier-config-rschristian/-/prettier-config-rschristian-0.1.0.tgz#cdd3effa83a1b76cb06bbd7f4483392143f463b0"
   integrity sha512-/wdmfpLky6ePyvmRvbuMkAheXaKIyz6TpP4S7XaKYJamyp1FMbjJq4f5cPBORWpDK6Mq7YbKv0EG4bHK0ODjjw==
 
-prettier@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.1.1.tgz#d9485dd5e499daa6cb547023b87a6cf51bee37d6"
-  integrity sha512-9bY+5ZWCfqj3ghYBLxApy2zf6m+NJo5GzmLTpr9FsApsfjriNnS2dahWReHMi7qNPhhHl9SYHJs2cHZLgexNIw==
+prettier@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.0.tgz#b6a5bf1284026ae640f17f7ff5658a7567fc0d18"
+  integrity sha512-kXtO4s0Lz/DW/IJ9QdWhAf7/NmPWQXkFr/r/WkR3vyI+0v8amTDxiaQSLzs8NBlytfLWX/7uQUMIW677yLKl4w==
 
 regexparam@^1.3.0:
   version "1.3.0"
