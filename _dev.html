@@ -21,15 +21,15 @@
                 overflow-x: hidden;
             }
 
-            .hljs {
+            code {
                 display: block;
                 overflow-x: auto;
                 padding: 0.5em;
                 color: #ddd;
             }
 
-            .hljs-number,
-            .hljs-string {
+            .token.number,
+            .token.string {
                 color: #d14124;
             }
         </style>
@@ -73,7 +73,7 @@
                         </div>
                         <pre
                             class="md:w-9/12 h-3/4 lg:h-3/5 px-0 py-0 bg-navy rounded-lg overflow-auto"
-                        ><code id="jsonData" class="lang-json"></code></pre>
+                        ><code id="jsonData" class="language-json"></code></pre>
                     </div>
                 </div>
             </section>
@@ -90,15 +90,15 @@
                 >
             </footer>
         </div>
-        <script src="/highlight.pack.js"></script>
+        <script src="/prism.js"></script>
         <script type="module">
             getUserData('rschristian');
             async function getUserData(username) {
                 try {
                     const response = await (await fetch(`/user/${username}`)).json();
-                    document.getElementById('jsonData').innerHTML = JSON.stringify(response, null, 2);
-                    hljs.initHighlighting.called = false;
-                    hljs.initHighlighting();
+                    const jsonElement = document.getElementById('jsonData');
+                    jsonElement.innerHTML = JSON.stringify(response, null, 2);
+                    Prism.highlightElement(jsonElement);
                 } catch (e) {
                     console.log(e);
                 }

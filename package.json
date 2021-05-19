@@ -8,6 +8,7 @@
     "build:worker": "cfw build",
     "build:pages": "node twind.processor.js",
     "deploy": "cfw deploy",
+    "serve:dev": "sirv pages -p 3000",
     "lint": "prettier '{workers,pages}/**/*.{js,ts}' '*.{js,json,html}' --write"
   },
   "dependencies": {
@@ -21,7 +22,8 @@
   "devDependencies": {
     "@types/node-fetch": "^2.5.10",
     "prettier": "^2.1.1",
-    "prettier-config-rschristian": "^0.1.0"
+    "prettier-config-rschristian": "^0.1.0",
+    "sirv-cli": "^1.0.11"
   },
   "prettier": "prettier-config-rschristian"
 }
