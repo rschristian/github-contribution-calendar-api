@@ -1,6 +1,5 @@
 import { Router } from 'worktop';
 import { listen } from 'worktop/cache';
-import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 
 const API = new Router();
