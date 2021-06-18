@@ -4,7 +4,7 @@ This is a Cloudflare Worker (serverless function) that one could use to access t
 
 ## Usage
 
-There's a few ways one could use this. 
+There's a couple ways one could use this:
 
 Firstly, I have an instance of this API running at https://gh-calendar.rschristian.dev. You can use that address to get to an instruction page and use https://gh-calendar.rschristian.dev/user/{username} for retrieving data from the API. Availability of this is not guaranteed, service may go down without warning.
 
