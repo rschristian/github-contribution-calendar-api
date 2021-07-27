@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@polka/url@^1.0.0-next.9":
-  version "1.0.0-next.12"
-  resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.12.tgz#431ec342a7195622f86688bbda82e3166ce8cb28"
-  integrity sha512-6RglhutqrGFMO1MNUXp95RBuYIuc8wTnMAV5MUhLmjTOy78ncwOw7RgeQ/HeymkKXRhZd0s2DNrM1rL7unk3MQ==
+"@polka/url@^1.0.0-next.15":
+  version "1.0.0-next.15"
+  resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.15.tgz#6a9d143f7f4f49db2d782f9e1c8839a29b43ae23"
+  integrity sha512-15spi3V28QdevleWBNXE4pIls3nFZmBbUGrW9IVPwiQczuSb9n76TCB4bsk8TSel+I1OkHEdPhu5QKMfY6rQHA==
 
 "@types/node-fetch@^2.5.10":
   version "2.5.10"
@@ -330,15 +330,15 @@ pascal-case@^3.1.2:
     no-case "^3.0.4"
     tslib "^2.0.3"
 
-prettier-config-rschristian@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/prettier-config-rschristian/-/prettier-config-rschristian-0.1.0.tgz#cdd3effa83a1b76cb06bbd7f4483392143f463b0"
-  integrity sha512-/wdmfpLky6ePyvmRvbuMkAheXaKIyz6TpP4S7XaKYJamyp1FMbjJq4f5cPBORWpDK6Mq7YbKv0EG4bHK0ODjjw==
+prettier-config-rschristian@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/prettier-config-rschristian/-/prettier-config-rschristian-0.1.1.tgz#59efad3002a0a915c28019ed7ea2b2c8f875115e"
+  integrity sha512-PRs3vZn+1PTGTTtDfdDZdrhzLhQCu4Qe5HxWo1R3Ui2R8X2PX5rKEg7NOfZbvjla0686+nYocV3mDOhMz2D4WQ==
 
-prettier@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.0.tgz#b6a5bf1284026ae640f17f7ff5658a7567fc0d18"
-  integrity sha512-kXtO4s0Lz/DW/IJ9QdWhAf7/NmPWQXkFr/r/WkR3vyI+0v8amTDxiaQSLzs8NBlytfLWX/7uQUMIW677yLKl4w==
+prettier@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.2.tgz#ef280a05ec253712e486233db5c6f23441e7342d"
+  integrity sha512-lnJzDfJ66zkMy58OL5/NY5zp70S7Nz6KqcKkXYzn2tMVrNxvbqaBpg7H3qHaLxCJ5lNMsGuM8+ohS7cZrthdLQ==
 
 regexparam@^2.0.0:
   version "2.0.0"
@@ -362,10 +362,10 @@ semiver@^1.0.0:
   resolved "https://registry.yarnpkg.com/semiver/-/semiver-1.1.0.tgz#9c97fb02c21c7ce4fcf1b73e2c7a24324bdddd5f"
   integrity sha512-QNI2ChmuioGC1/xjyYwyZYADILWyW6AmS1UH6gDj/SFUUUS4MBAWs/7mxnkRPc/F4iHezDP+O8t0dO8WHiEOdg==
 
-sirv-cli@^1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/sirv-cli/-/sirv-cli-1.0.11.tgz#a3f4bed53b7c09306ed7f16ebea6e1e7be676c74"
-  integrity sha512-L8NILoRSBd38VcfFcERYCaVCnWPBLo9G6u/a37UJ8Ysv4DfjizMbFBcM+SswNnndJienhR6qy8KFuAEaeL4g8Q==
+sirv-cli@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/sirv-cli/-/sirv-cli-1.0.12.tgz#10c5240831879422dba42bdcdf9c09dcc3314615"
+  integrity sha512-Rs5PvF3a48zuLmrl8vcqVv9xF/WWPES19QawVkpdzqx7vD5SMZS07+ece1gK4umbslXN43YeIksYtQM5csgIzQ==
   dependencies:
     console-clear "^1.1.0"
     get-port "^3.2.0"
@@ -373,15 +373,15 @@ sirv-cli@^1.0.11:
     local-access "^1.0.1"
     sade "^1.6.0"
     semiver "^1.0.0"
-    sirv "^1.0.11"
+    sirv "^1.0.12"
     tinydate "^1.0.0"
 
-sirv@^1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/sirv/-/sirv-1.0.11.tgz#81c19a29202048507d6ec0d8ba8910fda52eb5a4"
-  integrity sha512-SR36i3/LSWja7AJNRBz4fF/Xjpn7lQFI30tZ434dIy+bitLYSP+ZEenHg36i23V2SGEz+kqjksg0uOGZ5LPiqg==
+sirv@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/sirv/-/sirv-1.0.12.tgz#d816c882b35489b3c63290e2f455ae3eccd5f652"
+  integrity sha512-+jQoCxndz7L2tqQL4ZyzfDhky0W/4ZJip3XoOuxyQWnAwMxindLl3Xv1qT4x1YX/re0leShvTm8Uk0kQspGhBg==
   dependencies:
-    "@polka/url" "^1.0.0-next.9"
+    "@polka/url" "^1.0.0-next.15"
     mime "^2.3.1"
     totalist "^1.0.0"
 
@@ -436,9 +436,9 @@ twind@^0.16.16:
     htmlparser2 "^6.0.0"
     style-vendorizer "^2.0.0"
 
-worktop@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/worktop/-/worktop-0.7.0.tgz#d88fd3dcc894715f656d3b80d24433652f455a55"
-  integrity sha512-kLLov4ChDvC9OhSDHYX5kWEoo1zt3OZWykXkpmTHsfZ1axFfSRDeD/vZcEKLOngGRMFR7PuYaf4Q94fNFkMeIQ==
+worktop@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/worktop/-/worktop-0.7.1.tgz#1255e6e84e42ea1e7a17e69d596514237e05dacb"
+  integrity sha512-p6QuswBEGO/x7E8C6pAyCLd8bKJBY0Idtca1pBTOSvFz4oFBP3O9GVcmuHEXRtp2Z1PBFoATnVJDcI0Uj0nmJA==
   dependencies:
     regexparam "^2.0.0"

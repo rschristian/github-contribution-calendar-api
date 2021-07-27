@@ -16,13 +16,13 @@
     "cfw": "^0.1.3",
     "html-minifier-terser": "^5.1.1",
     "twind": "^0.16.16",
-    "worktop": "^0.7.0"
+    "worktop": "^0.7.1"
   },
   "devDependencies": {
     "@types/node-fetch": "^2.5.10",
-    "prettier": "^2.3.0",
-    "prettier-config-rschristian": "^0.1.0",
-    "sirv-cli": "^1.0.11"
+    "prettier": "^2.3.2",
+    "prettier-config-rschristian": "^0.1.1",
+    "sirv-cli": "^1.0.12"
   },
   "prettier": "prettier-config-rschristian"
 }
