@@ -116,6 +116,7 @@
             async function getUserData(username) {
                 try {
                     const response = await (await fetch(`https://gh-calendar.rschristian.dev/user/${username}`)).json();
+                    if (response.message) return;
                     const jsonElement = document.getElementById('jsonData');
                     jsonElement.innerHTML = JSON.stringify(
                         { total: response.total, contributions: response.contributions.slice(0, 3) },
@@ -131,18 +132,18 @@
             document.getElementById('usernameInput').addEventListener('change', (e) => {
                 if (e.target.value) {
                     getUserData(e.target.value);
-                    setHeaderLinkText(e.target.value);
+                    setHeaderLink(e.target.value);
                 } else {
                     getUserData(undefined);
-                    setHeaderLinkText(undefined);
+                    setHeaderLink(undefined);
                 }
             });
 
             const headerLink = document.getElementById('header-link-text');
 
             function setHeaderLink(username) {
-                headerLink.text = headerLinkText.text.replace(/([^/]+$)/, username ? username : '{username}');
-                headerLink.href = headerLinkText.href.replace(/([^/]+$)/, username ? username : 'undefined');
+                headerLink.text = headerLink.text.replace(/([^/]+$)/, username ? username : '{username}');
+                headerLink.href = headerLink.href.replace(/([^/]+$)/, username ? username : 'undefined');
             }
         </script>
     </body>
