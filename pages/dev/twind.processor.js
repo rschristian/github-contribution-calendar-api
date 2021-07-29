@@ -34,7 +34,7 @@ setup({
 (async function ssr() {
     sheet.reset();
 
-    const html = await fs.readFile('_dev.html', 'utf8');
+    const html = await fs.readFile('pages/dev/_dev.html', 'utf8');
 
     shim(html);
     const styleTag = getStyleTag(sheet);

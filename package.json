@@ -6,9 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build:workers": "cfw build",
-    "build:pages": "node twind.processor.js",
+    "build:pages": "node pages/dev/twind.processor.js",
     "deploy": "cfw deploy",
-    "serve:dev": "sirv pages -p 3000 -D",
+    "serve:dev": "sirv pages -p 3000 -D & chokidar 'pages/dev/_dev.html' -c 'yarn build:pages'",
     "format": "prettier 'workers/**/*.ts' '*.{js,json,html}' --write"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@types/node-fetch": "^2.5.10",
+    "chokidar-cli": "^3.0.0",
     "prettier": "^2.3.2",
     "prettier-config-rschristian": "^0.1.1",
     "sirv-cli": "^1.0.12"

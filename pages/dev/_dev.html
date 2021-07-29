@@ -36,7 +36,7 @@
         <style></style>
     </head>
     <body>
-        <div id="app" class="flex flex-col h-full">
+        <div class="flex flex-col h-full">
             <section class="bg-navy text-offWhite">
                 <div class="py-12 px-4 flex-shrink-0">
                     <div class="w-auto max-w-screen-xl relative text-center my-0 mx-auto">
@@ -115,7 +115,7 @@
             getUserData('rschristian');
             async function getUserData(username) {
                 try {
-                    const response = await (await fetch(`/user/${username}`)).json();
+                    const response = await (await fetch(`https://gh-calendar.rschristian.dev/user/${username}`)).json();
                     const jsonElement = document.getElementById('jsonData');
                     jsonElement.innerHTML = JSON.stringify(
                         { total: response.total, contributions: response.contributions.slice(0, 3) },
