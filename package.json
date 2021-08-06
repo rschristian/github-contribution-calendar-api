@@ -6,9 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build:workers": "cfw build",
-    "build:pages": "node pages/dev/twind.processor.js",
+    "build:pages": "node pages/dev/twind-processor.js",
     "deploy": "cfw deploy",
-    "serve:dev": "sirv pages -p 3000 -D & chokidar 'pages/dev/_dev.html' -c 'yarn build:pages'",
+    "serve:dev": "sirv pages -p 3000 -D & chokidar --initial 'pages/dev/{index.html,twind-processor.js}' -c 'yarn build:pages'",
     "format": "prettier 'workers/**/*.ts' '*.{js,json,html}' --write"
   },
   "dependencies": {

@@ -15,6 +15,7 @@ setup({
                 '5xl': '2.5rem',
             },
             height: {
+                '1/2': '50vh',
                 '3/5': '60vh',
                 '3/4': '75vh',
             },
@@ -26,6 +27,12 @@ setup({
                 DEFAULT: '#d14124',
                 hover: '#f17154',
             },
+            steel: {
+                dimmer: '#b5b5b5',
+                dim: '#ddd',
+                DEFAULT: '#ededed',
+            },
+            white: '#fff',
         },
     },
     sheet,
@@ -34,7 +41,7 @@ setup({
 (async function ssr() {
     sheet.reset();
 
-    const html = await fs.readFile('pages/dev/_dev.html', 'utf8');
+    const html = await fs.readFile('pages/dev/index.html', 'utf8');
 
     shim(html);
     const styleTag = getStyleTag(sheet);
