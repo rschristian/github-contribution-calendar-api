@@ -112,13 +112,14 @@
                     const response = await (
                         await fetch(`https://gh-calendar.rschristian.dev/user/${username}`)
                     ).json();
-                    if (response.message) return;
                     const jsonElement = document.getElementById('jsonData');
                     jsonElement.innerHTML = JSON.stringify(
-                        {
-                            total: response.total,
-                            contributions: response.contributions.slice(0, 3),
-                        },
+                        response.message
+                            ? response
+                            : {
+                                  total: response.total,
+                                  contributions: response.contributions.slice(0, 3),
+                              },
                         null,
                         2,
                     );
