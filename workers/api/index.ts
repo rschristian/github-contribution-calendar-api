@@ -43,6 +43,8 @@ async function getUserData(requestedUser: string) {
         .transform(response)
         .arrayBuffer();
 
+    if (!total && days.length == 0) return { message: 'User does not exist' };
+
     const contributions = [];
     for (let i = 0; i < Math.ceil(days.length / 7); i++) contributions.push([]);
     for (let i = 0; i < days.length; i++) contributions[Math.floor(i / 7)].push(days[i]);
