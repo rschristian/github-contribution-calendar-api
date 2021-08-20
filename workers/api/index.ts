@@ -1,6 +1,5 @@
 import { Router } from 'worktop';
 import { listen } from 'worktop/cache';
-import cheerio from 'cheerio';
 
 const API = new Router();
 
@@ -19,42 +18,37 @@ API.add('GET', '/user/:username', async (req, res) => {
 listen(API.run);
 
 async function getUserData(requestedUser: string) {
-    const data = await fetch(`https://github.com/users/${requestedUser}/contributions`);
-    const $ = cheerio.load(await data.text());
+    let response = await fetch(`https://github.com/users/${requestedUser}/contributions`);
 
-    if ($('.js-yearly-contributions').length < 1) return { message: 'User does not exist' };
+    let total: number;
+    let days = [];
 
-    const contributionCountText = $('.js-yearly-contributions h2')
-        .text()
-        .trim()
-        .match(/^[0-9,]+/);
+    await new HTMLRewriter()
+        .on('.js-yearly-contributions h2', {
+            text(text) {
+                // text hits twice, second time is empty
+                if (total) return;
+                total = parseInt(text.text.match(/[0-9,]+/)[0].replace(/,/g, ''), 10);
+            },
+        })
+        .on('g > .ContributionCalendar-day', {
+            element(element: Element) {
+                days.push({
+                    date: element.getAttribute('data-date'),
+                    count: parseInt(element.getAttribute('data-count'), 10),
+                    intensity: element.getAttribute('data-level'),
+                });
+            },
+        })
+        .transform(response)
+        .arrayBuffer();
 
-    let contributionCount = 0;
-    if (contributionCountText) {
-        contributionCount = parseInt(contributionCountText[0].replace(/,/g, ''), 10);
-    }
-
-    const parseDay = (day: HTMLDivElement) => {
-        const $day = $(day);
-
-        return {
-            date: $day.attr('data-date'),
-            count: parseInt($day.attr('data-count'), 10),
-            intensity: $day.attr('data-level'),
-        };
-    };
-    const days = $('g > rect.ContributionCalendar-day')
-        .get()
-        .map((day) => parseDay(day));
-
-    const contributionData = [];
-    for (let i = 0; i < Math.ceil(days.length / 7); i++) contributionData.push([]);
-    for (let i = 0; i < days.length; i++) {
-        contributionData[Math.floor(i / 7)].push(days[i]);
-    }
+    const contributions = [];
+    for (let i = 0; i < Math.ceil(days.length / 7); i++) contributions.push([]);
+    for (let i = 0; i < days.length; i++) contributions[Math.floor(i / 7)].push(days[i]);
 
     return {
-        total: contributionCount,
-        contributions: contributionData,
+        total,
+        contributions,
     };
 }
