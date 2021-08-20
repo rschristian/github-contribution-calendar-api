@@ -8,7 +8,8 @@
     "build:workers": "cfw build",
     "build:pages": "node pages/dev/twind-processor.js",
     "deploy": "cfw deploy",
-    "serve:dev": "sirv pages -p 3000 -D & chokidar --initial 'pages/dev/{index.html,twind-processor.js}' -c 'yarn build:pages'",
+    "dev:workers": "miniflare build/github-contribution-calendar/index.js -p 3000 -w",
+    "dev:pages": "sirv pages -p 3000 -D & chokidar --initial 'pages/dev/{index.html,twind-processor.js}' -c 'yarn build:pages'",
     "format": "prettier --write --ignore-path .gitignore . '!pages/prism.js'"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
+    "miniflare": "^1.3.3",
     "prettier": "^2.3.2",
     "prettier-config-rschristian": "^0.1.1",
     "sirv-cli": "^1.0.12"
