@@ -28,7 +28,9 @@
             <section class="bg-navy">
                 <div class="py-12 px-4">
                     <div class="mx-auto text-center">
-                        <h1 class="mb-2 text-5xl text-steel font-bold">GitHub Contribution Calendar API</h1>
+                        <h1 class="mb-2 text-5xl text-steel font-bold">
+                            GitHub Contribution Calendar API
+                        </h1>
                         <h2 class="text-steel-dim hover:text-steel-dimmer">
                             <a
                                 id="header-link-text"
@@ -65,12 +67,13 @@
             <main class="w-full lg:max-w-screen-lg mx-auto px-6 py-12 flex-auto">
                 <h1 class="mb-2 text-4xl text-center lg:text-left">Data Structure</h1>
                 <p class="text-base lg:text-xl text-justify lg:ml-4 mb-2">
-                    Below is an sample of the data that is returned. By default, my own profile data is
-                    provided, but feel free to enter your own user name to see the data and the structure that is
-                    returned.
+                    Below is an sample of the data that is returned. By default, my own profile data
+                    is provided, but feel free to enter your own user name to see the data and the
+                    structure that is returned.
                 </p>
                 <p class="text-base lg:text-xl text-justify lg:ml-4">
-                    This API will cache values, meaning counts are only updated once per 24 hours per user.
+                    This API will cache values, meaning counts are only updated once per 24 hours
+                    per user.
                 </p>
                 <div class="my-8 mx-4 flex flex-col md:flex-row md:justify-between">
                     <div class="md:w-2/12 mb-3 pt-0">
@@ -106,11 +109,16 @@
             getUserData('rschristian');
             async function getUserData(username) {
                 try {
-                    const response = await (await fetch(`https://gh-calendar.rschristian.dev/user/${username}`)).json();
+                    const response = await (
+                        await fetch(`https://gh-calendar.rschristian.dev/user/${username}`)
+                    ).json();
                     if (response.message) return;
                     const jsonElement = document.getElementById('jsonData');
                     jsonElement.innerHTML = JSON.stringify(
-                        { total: response.total, contributions: response.contributions.slice(0, 3) },
+                        {
+                            total: response.total,
+                            contributions: response.contributions.slice(0, 3),
+                        },
                         null,
                         2,
                     );
@@ -133,8 +141,14 @@
             const headerLink = document.getElementById('header-link-text');
 
             function setHeaderLink(username) {
-                headerLink.text = headerLink.text.replace(/([^/]+$)/, username ? username : '{username}');
-                headerLink.href = headerLink.href.replace(/([^/]+$)/, username ? username : 'undefined');
+                headerLink.text = headerLink.text.replace(
+                    /([^/]+$)/,
+                    username ? username : '{username}',
+                );
+                headerLink.href = headerLink.href.replace(
+                    /([^/]+$)/,
+                    username ? username : 'undefined',
+                );
             }
         </script>
     </body>

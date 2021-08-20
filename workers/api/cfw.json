@@ -3,7 +3,5 @@
   "zoneid": "1a259109e149db7e0bcb2c1e3631fd79",
   "profile": "default",
   "entry": "index.ts",
-  "routes": [
-    "gh-calendar.rschristian.dev/user/*"
-  ]
+  "routes": ["gh-calendar.rschristian.dev/user/*"]
 }

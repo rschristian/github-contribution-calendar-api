@@ -9,7 +9,7 @@
     "build:pages": "node pages/dev/twind-processor.js",
     "deploy": "cfw deploy",
     "serve:dev": "sirv pages -p 3000 -D & chokidar --initial 'pages/dev/{index.html,twind-processor.js}' -c 'yarn build:pages'",
-    "format": "prettier 'workers/**/*.ts' '*.{js,json,html}' --write"
+    "format": "prettier --write --ignore-path .gitignore . '!pages/prism.js'"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.5",
@@ -19,7 +19,6 @@
     "worktop": "^0.7.1"
   },
   "devDependencies": {
-    "@types/node-fetch": "^2.5.10",
     "chokidar-cli": "^3.0.0",
     "prettier": "^2.3.2",
     "prettier-config-rschristian": "^0.1.1",
