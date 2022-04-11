@@ -27,7 +27,7 @@ async function getUserData(requestedUser: string) {
         .on('.js-yearly-contributions h2', {
             text(text) {
                 // text hits twice, second time is empty
-                if (total) return;
+                if (typeof total !== 'undefined') return;
                 total = parseInt(text.text.match(/[0-9,]+/)[0].replace(/,/g, ''), 10);
             },
         })
