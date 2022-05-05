@@ -17,37 +17,47 @@ API.add('GET', '/user/:username', async (req, res) => {
 
 listen(API.run);
 
-async function getUserData(requestedUser: string) {
-    let response = await fetch(`https://github.com/users/${requestedUser}/contributions`);
+/**
+ * @param {string} requestedUser
+ */
+async function getUserData(requestedUser) {
+    const response = await fetch(`https://github.com/users/${requestedUser}/contributions`);
 
-    let total: number;
-    let days = [];
+    let total;
+    let dayIndex = 0;
+    let contributions = [];
 
     await new HTMLRewriter()
         .on('.js-yearly-contributions h2', {
+            /**
+             * @param {Object} text
+             * @param {string} text.text
+             * @param {boolean} text.lastInTextNode - Last chunk of the text node is always(?) empty
+             */
             text(text) {
-                // text hits twice, second time is empty
-                if (typeof total !== 'undefined') return;
+                if (text.lastInTextNode) return;
                 total = parseInt(text.text.match(/[0-9,]+/)[0].replace(/,/g, ''), 10);
             },
         })
         .on('g > .ContributionCalendar-day', {
-            element(element: Element) {
-                days.push({
+            /**
+             * @param {Element} element
+             */
+            element(element) {
+                const weekIndex = Math.floor(dayIndex / 7);
+                if (!contributions[weekIndex]) contributions.push([]);
+                contributions[weekIndex].push({
                     date: element.getAttribute('data-date'),
                     count: parseInt(element.getAttribute('data-count'), 10),
                     intensity: element.getAttribute('data-level'),
                 });
+                dayIndex++;
             },
         })
         .transform(response)
         .arrayBuffer();
 
-    if (!total && days.length == 0) return { message: 'User does not exist' };
-
-    const contributions = [];
-    for (let i = 0; i < Math.ceil(days.length / 7); i++) contributions.push([]);
-    for (let i = 0; i < days.length; i++) contributions[Math.floor(i / 7)].push(days[i]);
+    if (!total && contributions.length == 0) return { message: 'User does not exist' };
 
     return {
         total,
