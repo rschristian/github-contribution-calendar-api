@@ -2,9 +2,12 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
+    "jsx": "preserve",
+    "jsxFactory": "preact.h",
+    "jsxFragmentFactory": "preact.Fragment",
     "moduleResolution": "Node",
     "allowJs": true,
     "checkJs": true
   },
-  "include": ["workers/api/*"]
+  "include": ["workers", "pages", "scripts"]
 }
