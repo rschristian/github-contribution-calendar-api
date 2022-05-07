@@ -2,6 +2,10 @@ import Prism from 'prismjs';
 import 'prismjs/components/prism-json';
 Prism.manual = true;
 
+const HOST = import.meta.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000'
+    : 'https://gh-calendar.rschristian.dev';
+
 (async function userSelector() {
     if (import.meta.env.NODE_ENV !== 'production') {
         while (!document.querySelector('#user-selector')) {
@@ -16,7 +20,7 @@ Prism.manual = true;
         try {
             const username = e.target.value || 'undefined';
             const response = await (
-                await fetch('https://gh-calendar.rschristian.dev/user/' + username)
+                await fetch(`${HOST}/user/${username}?limit=3`)
             ).json();
             const jsonElement = document.getElementById('jsonData');
             jsonElement.innerHTML = JSON.stringify(
@@ -24,7 +28,7 @@ Prism.manual = true;
                     ? response
                     : {
                           total: response.total,
-                          contributions: response.contributions.slice(0, 3),
+                          contributions: response.contributions,
                       },
                 null,
                 2,

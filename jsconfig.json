@@ -9,5 +9,5 @@
     "allowJs": true,
     "checkJs": true
   },
-  "include": ["workers", "pages", "scripts"]
+  "include": ["workers", "pages", "scripts", "node_modules/wmr"]
 }
