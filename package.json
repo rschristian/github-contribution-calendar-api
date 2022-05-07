@@ -7,7 +7,7 @@
   "scripts": {
     "build:workers": "worktop build workers/index.js --minify && cp workers/cfw.json build/",
     "build:pages": "wmr build --prerender && node scripts/post-build-pages.js",
-    "deploy": "cfw deploy",
+    "deploy": "cfw deploy --single",
     "dev:workers": "chokidar 'workers/*' --initial -c 'yarn build:workers' & sleep 1 & miniflare -p 5000 --watch",
     "dev:pages": "wmr -p 3000",
     "format": "prettier --write --ignore-path .gitignore ."
