@@ -6,7 +6,7 @@ const API = new Router();
 
 API.add('GET', '/user/:username', async (_req, context) => {
     const requestedUser = String(context.params.username);
-    const limit = Number(context.url.searchParams.get('limit')) ?? -1;
+    const limit = Number(context.url.searchParams.get('limit') ?? -1);
 
     const headers = {
         'Content-Type': 'application/json',
