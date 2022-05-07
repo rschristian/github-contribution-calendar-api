@@ -1,32 +1,49 @@
 import { Router } from 'worktop';
-import { listen } from 'worktop/cache';
+import { reply } from 'worktop/response';
+import { listen } from 'worktop/cfw';
 
 const API = new Router();
 
-API.add('GET', '/user/:username', async (req, res) => {
-    const requestedUser = String(req.params.username);
+API.add('GET', '/user/:username', async (_req, context) => {
+    const requestedUser = String(context.params.username);
+    const limit = Number(context.url.searchParams.get('limit')) ?? -1;
 
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Cache-Control', 'public, max-age=86400, immutable');
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'public, max-age=86400, immutable',
+        'Access-Control-Allow-Origin': '*',
+    };
 
-    const data = await getUserData(requestedUser);
+    const userData = await getUserData(requestedUser, limit);
 
-    res.end(JSON.stringify(data));
+    if (!userData.total && !userData.contributions)
+        return reply(404, JSON.stringify({ message: 'User does not exist' }), headers);
+
+    return reply(200, JSON.stringify(userData), headers);
 });
 
 listen(API.run);
 
 /**
- * @param {string} requestedUser
+ * @typedef Contribution
+ * @property {string} date
+ * @property {number} count
+ * @property {(0 | 1 | 2 | 3 | 4)} intensity
  */
-async function getUserData(requestedUser) {
+
+/**
+ * @param {string} requestedUser
+ * @param {number} [limit]
+ * @returns {Promise<{ total: number, contributions: Contribution[][] }>}
+ */
+async function getUserData(requestedUser, limit) {
     const response = await fetch(`https://github.com/users/${requestedUser}/contributions`);
 
     let total;
     let dayIndex = 0;
     let contributions = [];
 
+    // @ts-ignore
     await new HTMLRewriter()
         .on('.js-yearly-contributions h2', {
             /**
@@ -45,6 +62,7 @@ async function getUserData(requestedUser) {
              */
             element(element) {
                 const weekIndex = Math.floor(dayIndex / 7);
+                if (weekIndex === limit) return;
                 if (!contributions[weekIndex]) contributions.push([]);
                 contributions[weekIndex].push({
                     date: element.getAttribute('data-date'),
@@ -56,8 +74,6 @@ async function getUserData(requestedUser) {
         })
         .transform(response)
         .arrayBuffer();
-
-    if (!total && contributions.length == 0) return { message: 'User does not exist' };
 
     return {
         total,

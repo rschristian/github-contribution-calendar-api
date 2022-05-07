@@ -2,6 +2,6 @@
   "name": "github-contribution-calendar",
   "zoneid": "1a259109e149db7e0bcb2c1e3631fd79",
   "profile": "default",
-  "entry": "index.js",
+  "entry": "index.mjs",
   "routes": ["gh-calendar.rschristian.dev/user/*"]
 }
