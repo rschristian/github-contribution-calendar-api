@@ -4,11 +4,30 @@ This is a Cloudflare Worker (serverless function) that one could use to access t
 
 ## Usage
 
-There's a couple ways one could use this:
+You can find an interactive instruction page to test the data here: https://gh-calendar.rschristian.dev
 
-Firstly, I have an instance of this API running at https://gh-calendar.rschristian.dev. You can use that address to get to an instruction page and use https://gh-calendar.rschristian.dev/user/{username} for retrieving data from the API. Availability of this is not guaranteed, service may go down without warning.
+An instance of this API is available here: https://gh-calendar.rschristian.dev/user/{username}
 
-Secondly, you could deploy your own instance from the source here. I have this set up to run as a Cloudflare worker using [`worktop`](https://github.com/lukeed/worktop) & [`cfw`](https://github.com/lukeed/cfw). After following `cfw`'s instructions to set up a config file, edit [cfw.json](workers/api/cfw.json) with your credentials.
+However, availability of this is not guaranteed and service may go down without warning. See [Hosting](#hosting) if that is a concern.
+
+### Query Parameters
+
+Additionally, a few query arguments are supported:
+
+- `year`
+  - Type: Number<br />
+  - Default: `null`
+
+    Use this to customize which year's data you'd like. By default, the API returns the last 365 days rather than a calendar year.
+- `limit`
+  - Type: Number<br />
+  - Default: `null`
+
+    Unlikely to be useful, but limits the data returned to the first `X` number of weeks in the data set.
+
+## Hosting
+
+One could deploy their own instance from the source here. I have this set up to run as a Cloudflare worker using [`worktop`](https://github.com/lukeed/worktop) & [`cfw`](https://github.com/lukeed/cfw). After following `cfw`'s instructions to set up a config file, edit [cfw.json](workers/api/cfw.json) with your credentials.
 
 You can then deploy by running the following:
 
