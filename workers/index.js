@@ -59,9 +59,13 @@ async function getUserData(requestedUser, year, limit) {
     await new HTMLRewriter()
         .on('.js-yearly-contributions h2', {
             /**
-             * @param {Object} text
-             * @param {string} text.text
-             * @param {boolean} text.lastInTextNode - Last chunk of the text node is always(?) empty
+             * @typedef {Object} HTMLRewriterTextChunk
+             * @property {string} text
+             * @property {boolean} lastInTextNode - Last chunk of the text node is always(?) empty
+             */
+
+            /**
+             * @param {HTMLRewriterTextChunk} text
              */
             text(text) {
                 if (text.lastInTextNode) return;
@@ -81,15 +85,17 @@ async function getUserData(requestedUser, year, limit) {
                 intensity = element.getAttribute('data-level');
             },
             /**
-             * @param{{text: string}} text
+             * @param {HTMLRewriterTextChunk} text
              */
-            text({ text }) {
+            text(text) {
+                if (text.lastInTextNode) return;
                 if (weekIndex === limit) return;
 
                 // ex:
                 //   "No contributions on Sunday, May 29, 2022"
                 //   "11 contributions on Monday, July 25, 2022"
-                const count = text.match(/^[^\s]*/)[0];
+                const count = text.text.match(/^[^\s]*/)[0];
+
                 contributions[weekIndex].push({
                     date,
                     count: parseInt(count, 10) || 0,
