@@ -51,6 +51,10 @@ async function getUserData(requestedUser, year, limit) {
     let dayIndex = 0;
     let contributions = [];
 
+    let weekIndex;
+    let date;
+    let intensity;
+
     // @ts-ignore
     await new HTMLRewriter()
         .on('.js-yearly-contributions h2', {
@@ -69,13 +73,27 @@ async function getUserData(requestedUser, year, limit) {
              * @param {Element} element
              */
             element(element) {
-                const weekIndex = Math.floor(dayIndex / 7);
+                weekIndex = Math.floor(dayIndex / 7);
                 if (weekIndex === limit) return;
                 if (!contributions[weekIndex]) contributions.push([]);
+
+                date = element.getAttribute('data-date');
+                intensity = element.getAttribute('data-level');
+            },
+            /**
+             * @param{{text: string}} text
+             */
+            text({ text }) {
+                if (weekIndex === limit) return;
+
+                // ex:
+                //   "No contributions on Sunday, May 29, 2022"
+                //   "11 contributions on Monday, July 25, 2022"
+                const count = text.match(/^[^\s]*/)[0];
                 contributions[weekIndex].push({
-                    date: element.getAttribute('data-date'),
-                    count: parseInt(element.getAttribute('data-count'), 10),
-                    intensity: element.getAttribute('data-level'),
+                    date,
+                    count: parseInt(count, 10) || 0,
+                    intensity,
                 });
                 dayIndex++;
             },
