@@ -54,22 +54,37 @@ async function getUserData(requestedUser, year, limit) {
     let weekIndex;
     let date;
     let intensity;
+    let nextText = '';
+
+    /**
+     * @typedef {Object} HTMLRewriterTextChunk
+     * @property {string} text
+     * @property {boolean} lastInTextNode - Last chunk of the text node is always(?) empty
+     */
+
+    /**
+     * @param {HTMLRewriterTextChunk} text
+     * @param {() => void} cb
+     */
+    const waitForLastTextChunk = (text, cb) => {
+        nextText += text.text;
+        if (text.lastInTextNode) {
+            cb();
+            nextText = '';
+        }
+    };
 
     // @ts-ignore
     await new HTMLRewriter()
         .on('.js-yearly-contributions h2', {
             /**
-             * @typedef {Object} HTMLRewriterTextChunk
-             * @property {string} text
-             * @property {boolean} lastInTextNode - Last chunk of the text node is always(?) empty
-             */
-
-            /**
              * @param {HTMLRewriterTextChunk} text
              */
             text(text) {
-                if (text.lastInTextNode) return;
-                total = parseInt(text.text.match(/[0-9,]+/)[0].replace(/,/g, ''), 10);
+                waitForLastTextChunk(
+                    text,
+                    () => (total = parseInt(nextText.match(/[0-9,]+/)[0].replace(/,/g, ''), 10)),
+                );
             },
         })
         .on('g > .ContributionCalendar-day', {
@@ -88,20 +103,19 @@ async function getUserData(requestedUser, year, limit) {
              * @param {HTMLRewriterTextChunk} text
              */
             text(text) {
-                if (text.lastInTextNode) return;
                 if (weekIndex === limit) return;
-
-                // ex:
-                //   "No contributions on Sunday, May 29, 2022"
-                //   "11 contributions on Monday, July 25, 2022"
-                const count = text.text.match(/^[^\s]*/)[0];
-
-                contributions[weekIndex].push({
-                    date,
-                    count: parseInt(count, 10) || 0,
-                    intensity,
+                waitForLastTextChunk(text, () => {
+                    // ex:
+                    //   "No contributions on Sunday, May 29, 2022"
+                    //   "11 contributions on Monday, July 25, 2022"
+                    const count = nextText.match(/^[^\s]*/)[0];
+                    contributions[weekIndex].push({
+                        date,
+                        count: parseInt(count, 10) || 0,
+                        intensity,
+                    });
+                    dayIndex++;
                 });
-                dayIndex++;
             },
         })
         .transform(response)
