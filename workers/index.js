@@ -48,10 +48,9 @@ async function getUserData(requestedUser, year, limit) {
     );
 
     let total;
-    let dayIndex = 0;
-    let contributions = [];
+    const contributions = [];
+    const dates = [];
 
-    let weekIndex;
     let date;
     let intensity;
     let nextText = '';
@@ -74,6 +73,7 @@ async function getUserData(requestedUser, year, limit) {
         }
     };
 
+
     // @ts-ignore
     await new HTMLRewriter()
         .on('.js-yearly-contributions h2', {
@@ -87,15 +87,11 @@ async function getUserData(requestedUser, year, limit) {
                 );
             },
         })
-        .on('g > .ContributionCalendar-day', {
+        .on('tr > .ContributionCalendar-day', {
             /**
              * @param {Element} element
              */
             element(element) {
-                weekIndex = Math.floor(dayIndex / 7);
-                if (weekIndex === limit) return;
-                if (!contributions[weekIndex]) contributions.push([]);
-
                 date = element.getAttribute('data-date');
                 intensity = element.getAttribute('data-level');
             },
@@ -103,23 +99,31 @@ async function getUserData(requestedUser, year, limit) {
              * @param {HTMLRewriterTextChunk} text
              */
             text(text) {
-                if (weekIndex === limit) return;
                 waitForLastTextChunk(text, () => {
                     // ex:
                     //   "No contributions on Sunday, May 29, 2022"
                     //   "11 contributions on Monday, July 25, 2022"
                     const count = nextText.match(/^[^\s]*/)[0];
-                    contributions[weekIndex].push({
+                    dates.push({
                         date,
                         count: parseInt(count, 10) || 0,
                         intensity,
                     });
-                    dayIndex++;
                 });
             },
         })
         .transform(response)
         .arrayBuffer();
+
+    let weekIndex;
+    dates
+        .sort((a, b) => a.date < b.date ? -1 : 1)
+        .slice(0, limit * 7)
+        .forEach((day, idx) => {
+            weekIndex = Math.floor(idx / 7);
+            if (!contributions[weekIndex]) contributions.push([]);
+            contributions[weekIndex].push(day);
+        });
 
     return {
         total,
