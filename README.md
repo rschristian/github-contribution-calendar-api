@@ -16,19 +16,18 @@ However, availability of this is not guaranteed and service may go down without 
 
 Additionally, a few query arguments are supported:
 
--   `year`
+- `year`
+  - Type: Number<br />
+  - Default: `null`
 
-    -   Type: Number<br />
-    -   Default: `null`
+    Use this to customize which year's data you'd like. By default, the API returns the last 365 days rather than a calendar year.
 
-        Use this to customize which year's data you'd like. By default, the API returns the last 365 days rather than a calendar year.
+- `limit`
+  - Type: Number<br />
+  - Default: `null`
 
--   `limit`
+    Unlikely to be useful, but limits the data returned to the first `X` number of weeks in the data set.
 
-    -   Type: Number<br />
-    -   Default: `null`
-
-        Unlikely to be useful, but limits the data returned to the first `X` number of weeks in the data set.
 
 Give it a star if this is useful for you.
 
