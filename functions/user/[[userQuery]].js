@@ -1,29 +1,35 @@
-import { Router } from 'worktop';
-import { reply } from 'worktop/response';
-import { listen } from 'worktop/cfw';
+const headers = {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'public, max-age=86400, immutable',
+    'Access-Control-Allow-Origin': '*',
+};
 
-const API = new Router();
+/**
+ * @param {number} status
+ * @param {string} message
+ */
+function errorResponse(status, message) {
+    return new Response(JSON.stringify({ error: `Error: ${message}` }), { status, headers });
+}
 
-API.add('GET', '/user/:username', async (_req, context) => {
-    const requestedUser = String(context.params.username);
-    const limit = Number(context.url.searchParams.get('limit') ?? -1);
-    const year = Number(context.url.searchParams.get('year') ?? -1);
+export async function onRequestGet(context) {
+    let userQuery;
+    try {
+        userQuery = context.params.userQuery[0];
+    } catch {}
 
-    const headers = {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=86400, immutable',
-        'Access-Control-Allow-Origin': '*',
-    };
+    if (!userQuery) return errorResponse(400, 'Missing user query');
 
-    const userData = await getUserData(requestedUser, year, limit);
+    const { searchParams } = new URL(context.request.url);
+    const limit = Number(searchParams.get('limit') ?? -1);
+    const year = Number(searchParams.get('year') ?? -1);
 
+    const userData = await getUserData(userQuery, year, limit);
     if (!userData.total && !userData.contributions)
-        return reply(404, JSON.stringify({ message: 'User does not exist' }), headers);
+        return errorResponse(404, 'User does not exist');
 
-    return reply(200, JSON.stringify(userData), headers);
-});
-
-listen(API.run);
+    return new Response(JSON.stringify(userData), { status: 200, headers });
+}
 
 /**
  * @typedef Contribution
@@ -48,12 +54,10 @@ async function getUserData(requestedUser, year, limit) {
     );
 
     let total;
-    const contributions = [];
-    const dates = [];
+    const data = {};
 
-    let date;
-    let intensity;
     let nextText = '';
+    let tooltipId;
 
     /**
      * @typedef {Object} HTMLRewriterTextChunk
@@ -73,7 +77,6 @@ async function getUserData(requestedUser, year, limit) {
         }
     };
 
-
     // @ts-ignore
     await new HTMLRewriter()
         .on('.js-yearly-contributions h2', {
@@ -87,13 +90,12 @@ async function getUserData(requestedUser, year, limit) {
                 );
             },
         })
-        .on('tr > .ContributionCalendar-day', {
+        .on('.js-calendar-graph tool-tip', {
             /**
              * @param {Element} element
              */
             element(element) {
-                date = element.getAttribute('data-date');
-                intensity = element.getAttribute('data-level');
+                tooltipId = element.getAttribute('for');
             },
             /**
              * @param {HTMLRewriterTextChunk} text
@@ -104,20 +106,34 @@ async function getUserData(requestedUser, year, limit) {
                     //   "No contributions on Sunday, May 29, 2022"
                     //   "11 contributions on Monday, July 25, 2022"
                     const count = nextText.match(/^[^\s]*/)[0];
-                    dates.push({
-                        date,
-                        count: parseInt(count, 10) || 0,
-                        intensity,
-                    });
+                    data[tooltipId] ??= {};
+                    data[tooltipId].count = parseInt(count, 10) || 0;
                 });
+            },
+        })
+        .on('tr > .ContributionCalendar-day', {
+            /**
+             * @param {Element} element
+             */
+            element(element) {
+                const date = element.getAttribute('data-date');
+                const intensity = element.getAttribute('data-level');
+
+                const tooltipId = element.getAttribute('id');
+
+                data[tooltipId] ??= {};
+                data[tooltipId].date = date;
+                data[tooltipId].intensity = intensity;
             },
         })
         .transform(response)
         .arrayBuffer();
 
+    const contributions = [];
+
     let weekIndex;
-    dates
-        .sort((a, b) => a.date < b.date ? -1 : 1)
+    Object.values(data)
+        .sort((a, b) => (a.date < b.date ? -1 : 1))
         .slice(0, limit * 7)
         .forEach((day, idx) => {
             weekIndex = Math.floor(idx / 7);

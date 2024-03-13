@@ -1,8 +1,19 @@
-import { defineConfig } from 'twind';
-import tailwindPreset from '@twind/preset-tailwind';
+import { defineConfig } from '@twind/core';
+import presetTailwind from '@twind/preset-tailwind';
 
 export const twindConfig = defineConfig({
-    presets: [tailwindPreset()],
+    darkMode: 'class',
+    presets: [presetTailwind()],
+    ignorelist: [
+        'dark',
+        'language-json',
+        'token',
+        'punctuation',
+        'property',
+        'operator',
+        'number',
+        'string',
+    ],
     hash: false,
     theme: {
         extend: {
@@ -24,6 +35,10 @@ export const twindConfig = defineConfig({
                 DEFAULT: '#292929',
                 dark: '#ddd',
             },
+            page: {
+                DEFAULT: '#f8f8f8',
+                dark: '#27272a',
+            },
             code: {
                 DEFAULT: '#fff',
                 inline: '#99a1b3',
@@ -33,6 +48,8 @@ export const twindConfig = defineConfig({
                 muted: '#999',
                 DEFAULT: '#ffffff',
             },
+            transparent: 'transparent',
         },
     },
+    variants: [['hocus', '&:hover,&:focus-visible']],
 });

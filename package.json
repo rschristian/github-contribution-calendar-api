@@ -1,37 +1,28 @@
 {
-  "name": "github-contribution-calendar-api",
   "private": true,
   "type": "module",
-  "main": "build/index.mjs",
-  "license": "MIT",
   "scripts": {
-    "build:workers": "worktop build workers/index.js --minify && cp workers/cfw.json build/",
-    "build:pages": "wmr build --prerender && node scripts/post-build-pages.js",
-    "deploy": "cfw deploy --single",
-    "dev:workers": "chokidar 'workers/*' --initial -c 'yarn build:workers' & sleep 1 & miniflare -p 5000 --watch",
-    "dev:pages": "wmr -p 3000",
+    "serve:dev": "yarn worker:dev -- -- sovereign",
+    "worker:dev": "wrangler pages dev --port 5000 --proxy 3000",
+    "build": "sovereign build --inline",
+    "serve:prod": "yarn worker:dev -- sovereign serve",
     "format": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
-    "@rschristian/twind-wmr": "^0.2.0",
-    "@twind/preset-tailwind": "^1.0.0-next.38",
-    "preact": "^10.7.1",
-    "preact-iso": "^2.3.0",
-    "preact-render-to-string": "^5.2.0",
-    "prismjs": "^1.28.0",
-    "twind": "^1.0.0-next.38",
-    "wmr": "^3.7.2"
+    "@rschristian/intrepid-design": "^0.1.4",
+    "@rschristian/twind-wmr": "^0.3.0",
+    "@sovereignjs/core": "^0.1.1",
+    "@twind/core": "^1.1.3",
+    "@twind/preset-tailwind": "^1.1.4",
+    "preact": "^10.19.1",
+    "preact-iso": "^2.4.0",
+    "preact-render-to-string": "^6.4.0",
+    "prismjs": "^1.28.0"
   },
   "devDependencies": {
-    "@types/node": "^16",
-    "cfw": "^0.3.0",
-    "chokidar-cli": "^3.0.0",
-    "miniflare": "^2.4.0",
     "prettier": "^2.6.2",
     "prettier-config-rschristian": "^0.1.1",
-    "typescript": "^4.6.4",
-    "worktop": "0.8.0-next.13",
-    "worktop.build": "^0.0.5"
+    "wrangler": "^3.33.0"
   },
   "prettier": "prettier-config-rschristian"
 }

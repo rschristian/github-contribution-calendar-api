@@ -8,6 +8,5 @@
     "moduleResolution": "Node",
     "allowJs": true,
     "checkJs": true
-  },
-  "include": ["workers", "pages", "scripts", "node_modules/wmr"]
+  }
 }

@@ -1,2 +1,2 @@
-[build]
-command = "yarn build:workers"
+name = "github-contribution-calendar-api"
+compatibility_date = "2024-03-13"

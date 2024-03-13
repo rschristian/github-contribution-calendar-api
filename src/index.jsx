@@ -1,14 +1,23 @@
+import { Root, Header, Main, Footer } from '@rschristian/intrepid-design';
 import { withTwind } from '@rschristian/twind-wmr';
-
-import { Header } from './components/core/Header.jsx';
-import { Footer } from './components/core/Footer.jsx';
-import { CodeBlock } from './components/CodeBlock.jsx';
 
 export function App() {
     return (
-        <div class="flex(& col) h-full px-5 text-content(& dark:dark) bg([#f8f8f8] dark:[#27272a])">
-            <Header />
-            <main class="max-w-4xl flex-1 mb(16 md:32 lg:48) mx-auto">
+        <Root>
+            <Header RSC={{ href: 'https://github.com/rschristian', label: 'My GitHub Account' }}>
+                <Header.NavItem
+                    href="https://github.com/rschristian/github-contribution-calendar-api"
+                    label="Source Code on GitHub"
+                    iconId="github"
+                />
+                <Header.NavItem
+                    href="https://twitter.com/_rschristian"
+                    label="My Twitter Account"
+                    iconId="twitter"
+                />
+                <Header.ThemeToggle />
+            </Header>
+            <Main>
                 <h1 class="mb-2 text(primary(& dark:light) 5xl center lg:left)">
                     GitHub Contribution Calendar API
                 </h1>
@@ -48,14 +57,22 @@ export function App() {
                     placeholder="Enter a GitHub username"
                 />
                 <CodeBlock />
-            </main>
-            <Footer />
-        </div>
+            </Main>
+            <Footer year={2021} />
+        </Root>
+    );
+}
+
+function CodeBlock() {
+    return (
+        <pre class="h-1/2 p-4 bg-code(& dark:dark) shadow-lg rounded-lg overflow-x-auto">
+            <code id="jsonData" class="language-json" />
+        </pre>
     );
 }
 
 const { hydrate, prerender } = withTwind(
-    () => import('./styles/twind.config.js').then(({ twindConfig }) => twindConfig),
+    () => import('./styles/twind.config.js'),
     () => <App />,
 );
 

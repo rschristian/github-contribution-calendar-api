@@ -1,0 +1,36 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  accent-color: #00b7f3;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+header svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+:root {
+  --code-blue: #00b7f3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --code-blue: #99daff;
+  }
+}
+
+.token.number,
+.token.string {
+  color: var(--code-blue);
+}
