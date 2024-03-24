@@ -21,7 +21,7 @@ export async function onRequestGet(context) {
     if (!userQuery) return errorResponse(400, 'Missing user query');
 
     const { searchParams } = new URL(context.request.url);
-    const limit = Number(searchParams.get('limit') ?? -1);
+    const limit = Number(searchParams.get('limit') ?? 0);
     const year = Number(searchParams.get('year') ?? -1);
 
     const userData = await getUserData(userQuery, year, limit);
@@ -134,7 +134,7 @@ async function getUserData(requestedUser, year, limit) {
     let weekIndex;
     Object.values(data)
         .sort((a, b) => (a.date < b.date ? -1 : 1))
-        .slice(0, limit * 7)
+        .slice(...(limit ? [0, limit * 7] : []))
         .forEach((day, idx) => {
             weekIndex = Math.floor(idx / 7);
             if (!contributions[weekIndex]) contributions.push([]);
